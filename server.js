@@ -9,6 +9,7 @@ const menuReq = require("./routes/menuRoutes")
 
 connectToMongoDB("mongodb://127.0.0.1:27017/hotels")
 .then(()=>console.log("connected DB"))
+// mongodb 
 
 
 

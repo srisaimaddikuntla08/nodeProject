@@ -1,13 +1,13 @@
 const express = require('express')
 const app = express();
-const PORT = 3000;
+ const PORT = 3000
 const bodyParser = require("body-parser")
 const {connectToMongoDB} = require("./db")
 const personReq = require("./routes/personRoutes")
 const menuReq = require("./routes/menuRoutes")
 
 
-connectToMongoDB("mongodb://127.0.0.1:27017/hotels")
+connectToMongoDB(process.env.MONGO_URL)
 .then(()=>console.log("connected DB"))
 // mongodb 
 

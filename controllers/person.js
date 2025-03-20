@@ -1,4 +1,7 @@
 const Person = require("../models/person");
+const bcrypt = require("bcrypt")
+
+
 
 async function handlePersonReq(req,res){
     try{
@@ -11,16 +14,20 @@ async function handlePersonReq(req,res){
 }
 
 async function handlePersonPost(req,res){
-    const body = req.body;
-   
-    const newPerson =  new Person(body);
+   const body = req.body;
 
-    await newPerson.save();
-    // const user = await Person.create({
-    //     name:body.name,
-    //     age:body.age,
-    //     email:body.email
-    // })
+   const hashespass = await  bcrypt.hash(body.password,10);
+    // const newPerson =  new Person(body);
+
+    // await newPerson.save();
+    const user = await Person.create({
+        name:body.name,
+        age:body.age,
+        email:body.email,
+        username:body.username,
+        password:hashespass
+
+    })
     res.json({msg:"sucess"})
 }
 

@@ -5,13 +5,13 @@ const bodyParser = require("body-parser")
 const {connectToMongoDB} = require("./db")
 const personReq = require("./routes/personRoutes")
 const menuReq = require("./routes/menuRoutes")
+const passport = require("./auth")
 
 
+
+// mongodb connection
 connectToMongoDB(process.env.MONGO_URL)
 .then(()=>console.log("connected DB"))
-// mongodb 
-
-
 
 
 app.use(bodyParser.json());
@@ -21,7 +21,21 @@ app.use(express.urlencoded({extended:true}))
 
 
 
-app.use("/person",personReq)
+ //intializing passportMiddlware
+app.use(passport.initialize());        
+const localAuthetication= passport.authenticate("local",{session:false})
+
+
+
+//empty route
+app.get("/", (req,res)=>{
+    res.send("welcome to hotel")
+})
+
+
+
+
+app.use("/person",[localAuthetication],personReq)
 app.use("/menu",menuReq)
 
   

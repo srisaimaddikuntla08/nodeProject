@@ -4,19 +4,26 @@ const personSchema  = new mongoose.Schema({
     name:{
         type:String,
         required:true,
-        unique:true
     },
     age:{
         type:Number
     },
     work:{
         type:String,
-        required:true,
         enum:["chef","manager","staff"]
     },
     email:{
         type:String,
         required:true,
+    },
+    username:{
+        required:true,
+        type:String,
+        unique:true,
+    },
+    password:{
+        type:String,
+        required:true
     }
 })
 
